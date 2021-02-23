@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div>
+        {{>header}}
+        <p>대기오염 정보를 얻으려면 측정장소를 입력해 주세요.</p>
+        <form action="/air" method="post">
+            <input placeholder="측정장소" name="location">
+            <button>Search</button>
+        </form>
+        {{>footer}}
+    </div>
+</body>
+
+</html>
