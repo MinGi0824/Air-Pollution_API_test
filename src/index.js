@@ -2,7 +2,12 @@ const express=require('express')
 const path = require('path')
 const hbs = require('hbs')
 
+const bodyParser = require('body-parser')
+const airdata = require('./utils/airdata')
+const stationdata = require('./utils/stationdata')
+
 const app = express()
+app.use(bodyParser.urlencoded({extended:true}))
 
 const viewsPath=path.join(__dirname,'../templates/views')
 const partialsPath=path.join(__dirname,'../templates/partials')
@@ -11,7 +16,7 @@ app.set('view engine', 'hbs')
 app.set('views',viewsPath)
 hbs.registerPartials(partialsPath)
 
-app.get('/',(req,res)=>{
+app.get('/station',(req,res)=>{
     res.render('index',{
         제목:'대기오염 정보',
         이름:'KimMinGi',
@@ -24,7 +29,8 @@ app.get('/help',(req,res)=>{
         제목:'대기오염 정보',
         이름:'KimMinGi',
         이메일:'ersd145@naver.com',
-        메시지:'대기오염 정보를 알고 싶은 지역을 입력하세요'
+        메시지1:{pm10 : '미세먼지', pm25 : '초미세먼지'},
+        메시지2:{1:'좋음(0~50)', 2:'보통(51~100)', 3:'나쁨(101~250)', 4:'매우나쁨(251~)'}
     })
 })
 
@@ -38,11 +44,42 @@ app.get('/about',(req,res)=>{
 })
 
 app.post('/air',(req,res)=>{
-    res.render('air',{
-        제목:'대기오염 정보',
-        이름:'KimMinGi',
-        이메일:'ersd145@naver.com',
-        메시지:'대기오염 정보를 알고 싶은 지역을 입력하세요'
+    airdata(req.body.location,(error,{air}={})=>{
+        if(error)   return res.send({error})
+        if(air['list'][0]==null){
+           return res.render('index',{
+                제목:'대기오염 정보',
+                이름:'KimMinGi',
+                이메일:'ersd145@naver.com'
+            })
+        }
+        return res.render('air',{
+            제목:'대기오염 정보',
+            이름:'KimMinGi',
+            이메일:'ersd145@naver.com',
+            location:air['parm']['stationName'],
+            측정망정보:air['list'][0]['mangName'],
+            time:air['list'][0]['dataTime'],
+            pm10:air['list'][0]['pm10Value'],
+            pm25:air['list'][0]['pm25Value'],
+            통합대기환경수치:air['list'][0]['khaiValue'],
+            통합대기환경지수:air['list'][0]['khaiGrade']
+        })
+    })
+})
+
+app.get('/',(req,res)=>{
+    stationdata((error,{station}={})=>{
+        if(error)   return res.send({error})
+
+        return res.render('station',{
+            제목:'대기오염 정보',
+            이름:'KimMinGi',
+            이메일:'ersd145@naver.com',
+            메시지:'통합대기환경지수 나쁨(3) 이상 측정소',
+            측정장소:station['list'],
+            주소:station['list']
+        })
     })
 })
 
