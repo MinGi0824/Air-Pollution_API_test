@@ -1,20 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
+{{>layout}}
 
 <body>
+
     {{>header}}
-    <h2>{{메시지}}</h2>
-    {{#측정장소}}
-    <p>측정장소 : {{stationName}}<br>
-        주소 : {{addr}}</p>
-    {{/측정장소}}
+    <div class="ui main text container">
+
+        <div class="ui center aligned container">
+
+            <h2>{{메시지}}</h2>
+            {{#측정장소}}
+            <ul>
+                <li>
+                    <div class="ui left aligned container">
+                        측정장소 : {{stationName}}<br>
+                        주소 : {{addr}}</p>
+                    </div>
+
+                </li>
+            </ul>
+            {{/측정장소}}
+        </div>
+    </div>
     {{>footer}}
 </body>
 

@@ -1,25 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
+{{>layout}}
 
 <body>
-    <div>
-        {{>header}}
-        <p>측정장소 : {{location}}</p>
-        <p>측정망 정보 : {{측정망정보}}</p>
-        <p>측정시각 : {{time}}</p>
-        <p>미세먼지(pm 10) : {{pm10}} ㎍/㎥</p>
-        <p>초미세먼지(pm 25) : {{pm25}} ㎍/㎥</p>
-        <p>통합대기환경수치 : {{통합대기환경수치}}</p>
-        <p>통합대기환경지수 : {{통합대기환경지수}}</p>
-        {{>footer}}
+
+    {{>header}}
+    <div class="ui main text container">
+
+        <div class="ui center aligned container">
+
+            <h3>대기오염 정보를 얻으려면 측정장소를 입력해 주세요.</h3>
+            <form action="/air" method="post">
+                <div class="ui action input">
+                    <input placeholder="측정장소" name="location">
+                    <button>Search</button>
+                </div>
+            </form>
+            <ul>
+                <div class="ui left aligned container">
+                    <li>측정장소 : {{location}}</li>
+                    <li>측정망 정보 : {{측정망정보}}</li>
+                    <li>측정시각 : {{time}}</li>
+                    <li>미세먼지(pm 10) : {{pm10}} ㎍/㎥</li>
+                    <li>초미세먼지(pm 25) : {{pm25}} ㎍/㎥</li>
+                    <li>통합대기환경수치 : {{통합대기환경수치}}</li>
+                    <li>통합대기환경지수 : {{통합대기환경지수}}</li>
+                </div>
+            </ul>
+        </div>
     </div>
+
+    {{>footer}}
 </body>
 
 </html>

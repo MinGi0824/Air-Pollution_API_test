@@ -1,26 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
+{{>layout}}
 
 <body>
+
     {{>header}}
-    {{#메시지1}}
-    <p>pm10 : {{pm10}}<br>
-        pm25 : {{pm25}}</p>
-    {{/메시지1}}
-    {{#메시지2}}
-    <p>통합대기환경지수(수치)<br>
-        1 : {{1}}<br>
-        2 : {{2}}<br>
-        3 : {{3}}<br>
-        4 : {{4}}</p>
-    {{/메시지2}}
+    <div class="ui main text container">
+
+        <div class="ui left aligned container">
+            <ul>
+                <h3>pm 정의</h3>
+            </ul>
+            {{#메시지1}}
+            <ul>
+                <li>pm10 : {{pm10}}</li>
+                <li>pm25 : {{pm25}}</li>
+            </ul>
+            {{/메시지1}}
+            {{#메시지2}}
+            <ul>
+                <h3>통합대기환경지수(수치)</h3>
+            </ul>
+            <ul>
+                <li>1 : {{1}}</li>
+                <li>2 : {{2}}</li>
+                <li>3 : {{3}}</li>
+                <li>4 : {{4}}</li>
+            </ul>
+            {{/메시지2}}
+        </div>
+    </div>
     {{>footer}}
 </body>
 
